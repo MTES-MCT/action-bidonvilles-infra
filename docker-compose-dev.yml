@@ -1,17 +1,21 @@
 version: '3.4'
 services:
     rb-api:
-        build:
-            context: ../action-bidonvilles-api
-            target: development
+        image: node:14.15.0-alpine
         container_name: rb_api
-        env_file: ./config/.env.sample
+        working_dir: /home/node/app
         depends_on:
             - rb-database
         ports:
             - "1236:8080"
+        volumes:
+            - ../action-bidonvilles-api:/home/node/app
+            - ./config-dev/config.js.db:/home/node/app/db/config/config.js
+            - ./config-dev/config.js.server:/home/node/app/server/config.js
+            - ./scripts-dev/startup.sh:/home/node/app/startup.sh
         networks:
             - rb-network
+        command: /home/node/app/startup.sh
 
     rb-database:
         image: postgres:13

@@ -1,0 +1,8 @@
+module.exports = {
+    username: 'fabnum',
+    password: 'fabnum',
+    database: 'bidonvilles',
+    host: 'rb-database',
+    port: 5432,
+    dialect: 'postgres',
+};
